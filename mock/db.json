@@ -1,0 +1,320 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "username": "mustafa",
+            "email": "mustafa@example.com",
+            "avatar": "https://i.pravatar.cc/150?u=1",
+            "bio": "Full stack developer & Altuvya creator",
+            "karma": 150,
+            "followers": 234,
+            "following": 89
+        },
+        {
+            "id": 2,
+            "username": "ayse",
+            "email": "ayse@example.com",
+            "avatar": "https://i.pravatar.cc/150?u=2",
+            "bio": "Traveling the world 🌍 | Coffee lover ☕",
+            "karma": 80,
+            "followers": 456,
+            "following": 123
+        },
+        {
+            "id": 3,
+            "username": "mehmet",
+            "email": "mehmet@example.com",
+            "avatar": "https://i.pravatar.cc/150?u=3",
+            "bio": "Coffee addict ☕ | Developer 💻",
+            "karma": 45,
+            "followers": 189,
+            "following": 67
+        },
+        {
+            "id": 4,
+            "username": "zeynep",
+            "email": "zeynep@example.com",
+            "avatar": "https://i.pravatar.cc/150?u=4",
+            "bio": "UI/UX Designer | Art & Tech",
+            "karma": 120,
+            "followers": 567,
+            "following": 234
+        },
+        {
+            "id": 5,
+            "username": "ali",
+            "email": "ali@example.com",
+            "avatar": "https://i.pravatar.cc/150?u=5",
+            "bio": "Photographer 📸 | Nature lover 🌲",
+            "karma": 95,
+            "followers": 345,
+            "following": 178
+        },
+        {
+            "id": 6,
+            "username": "fatma",
+            "email": "fatma@example.com",
+            "avatar": "https://i.pravatar.cc/150?u=6",
+            "bio": "Músic & Artist 🎵",
+            "karma": 67,
+            "followers": 234,
+            "following": 145
+        }
+    ],
+    "groups": [
+        {
+            "id": 1,
+            "name": "Teknoloji Tutkunları",
+            "description": "Yapay zeka, yazılım ve donanım üzerine sohbetler.",
+            "memberCount": 1250,
+            "isPrivate": false,
+            "tags": [
+                "tech",
+                "ai",
+                "software"
+            ],
+            "image": "https://picsum.photos/id/1/200/200"
+        },
+        {
+            "id": 2,
+            "name": "Film & Dizi",
+            "description": "En son çıkan filmler ve favori dizilerimiz.",
+            "memberCount": 850,
+            "isPrivate": false,
+            "tags": [
+                "movies",
+                "cinema"
+            ],
+            "image": "https://picsum.photos/id/2/200/200"
+        },
+        {
+            "id": 3,
+            "name": "Gezginler Kulübü",
+            "description": "Seyahat önerileri ve rota paylaşımları.",
+            "memberCount": 3200,
+            "isPrivate": false,
+            "tags": [
+                "travel",
+                "nature"
+            ],
+            "image": "https://picsum.photos/id/3/200/200"
+        },
+        {
+            "id": 4,
+            "name": "Müzik Kulübü",
+            "description": "Her türden müzik, enstrüman ve söz üzerine.",
+            "memberCount": 980,
+            "isPrivate": false,
+            "tags": [
+                "music",
+                "art"
+            ],
+            "image": "https://picsum.photos/id/4/200/200"
+        },
+        {
+            "id": 5,
+            "name": "Tasarım ve Sanat",
+            "description": "Grafik tasarım, UI/UX ve dijital sanat.",
+            "memberCount": 567,
+            "isPrivate": false,
+            "tags": [
+                "design",
+                "art",
+                "ui"
+            ],
+            "image": "https://picsum.photos/id/5/200/200"
+        }
+    ],
+    "posts": [
+        {
+            "id": 1,
+            "content": "Yapay zeka geleceği nasıl şekillendirecek? Düşünceleriniz neler?",
+            "userId": 1,
+            "groupId": 1,
+            "createdAt": "2024-01-18T10:00:00Z",
+            "likes": 15,
+            "comments": 3,
+            "isSpotlight": true,
+            "username": "mustafa",
+            "userAvatar": "https://i.pravatar.cc/150?u=1",
+            "mediaUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1200"
+        },
+        {
+            "id": 2,
+            "content": "Yeni vizyona giren filmi izleyen var mı? Harikaydı!",
+            "userId": 2,
+            "groupId": 2,
+            "createdAt": "2024-01-17T15:30:00Z",
+            "likes": 8,
+            "comments": 1,
+            "isSpotlight": false,
+            "username": "ayse",
+            "userAvatar": "https://i.pravatar.cc/150?u=2"
+        },
+        {
+            "id": 3,
+            "content": "React 19 beta sürümündeki compiler özelliği muazzam görünüyor.",
+            "userId": 1,
+            "groupId": 1,
+            "createdAt": "2024-01-16T09:15:00Z",
+            "likes": 42,
+            "comments": 12,
+            "isSpotlight": true,
+            "username": "mustafa",
+            "userAvatar": "https://i.pravatar.cc/150?u=1"
+        },
+        {
+            "id": 4,
+            "content": "Kapadokya gezisi için önerisi olan var mı?",
+            "userId": 3,
+            "groupId": 3,
+            "createdAt": "2024-01-15T18:45:00Z",
+            "likes": 20,
+            "comments": 5,
+            "isSpotlight": false,
+            "username": "mehmet",
+            "userAvatar": "https://i.pravatar.cc/150?u=3",
+            "mediaUrl": "https://images.unsplash.com/photo-1523531294919-4bcd7c65e216?w=1200"
+        },
+        {
+            "id": 5,
+            "content": "Bugün harika bir gün geçirdim! Doğa yürüyüşü çok iyiydi 🌲",
+            "userId": 5,
+            "groupId": 3,
+            "createdAt": "2024-01-15T14:20:00Z",
+            "likes": 34,
+            "comments": 7,
+            "isSpotlight": false,
+            "username": "ali",
+            "userAvatar": "https://i.pravatar.cc/150?u=5",
+            "mediaUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200"
+        },
+        {
+            "id": 6,
+            "content": "Yeni bir UI tasarımı üzerinde çalışıyorum. Sizce nasıl olmuş?",
+            "userId": 4,
+            "groupId": 5,
+            "createdAt": "2024-01-14T11:30:00Z",
+            "likes": 56,
+            "comments": 9,
+            "isSpotlight": true,
+            "username": "zeynep",
+            "userAvatar": "https://i.pravatar.cc/150?u=4",
+            "mediaUrl": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=1200"
+        },
+        {
+            "id": 7,
+            "content": "Kahve molası ☕ Bugün hangi kahveyi deniyorsunuz?",
+            "userId": 3,
+            "groupId": 1,
+            "createdAt": "2024-01-14T09:00:00Z",
+            "likes": 12,
+            "comments": 4,
+            "isSpotlight": false,
+            "username": "mehmet",
+            "userAvatar": "https://i.pravatar.cc/150?u=3"
+        },
+        {
+            "id": 8,
+            "content": "Son albümü dinlediniz mi? Çok etkileyici!",
+            "userId": 6,
+            "groupId": 4,
+            "createdAt": "2024-01-13T20:15:00Z",
+            "likes": 23,
+            "comments": 6,
+            "isSpotlight": false,
+            "username": "fatma",
+            "userAvatar": "https://i.pravatar.cc/150?u=6",
+            "mediaUrl": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=1200"
+        },
+        {
+            "id": 9,
+            "content": "TypeScript kullanmaya başladım. Gerçekten değiyor!",
+            "userId": 1,
+            "groupId": 1,
+            "createdAt": "2024-01-13T16:30:00Z",
+            "likes": 45,
+            "comments": 8,
+            "isSpotlight": false,
+            "username": "mustafa",
+            "userAvatar": "https://i.pravatar.cc/150?u=1"
+        },
+        {
+            "id": 10,
+            "content": "İstanbul'da gezilecek yerler önerisi alabilir miyim?",
+            "userId": 2,
+            "groupId": 3,
+            "createdAt": "2024-01-12T13:45:00Z",
+            "likes": 18,
+            "comments": 11,
+            "isSpotlight": false,
+            "username": "ayse",
+            "userAvatar": "https://i.pravatar.cc/150?u=2"
+        }
+    ],
+    "stories": [
+        {
+            "id": 1,
+            "userId": 1,
+            "username": "mustafa",
+            "avatar": "https://i.pravatar.cc/150?u=1",
+            "contentUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800",
+            "createdAt": "2024-01-18T10:30:00Z",
+            "expiresAt": "2024-01-19T10:30:00Z"
+        },
+        {
+            "id": 2,
+            "userId": 2,
+            "username": "ayse",
+            "avatar": "https://i.pravatar.cc/150?u=2",
+            "contentUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+            "createdAt": "2024-01-18T09:15:00Z",
+            "expiresAt": "2024-01-19T09:15:00Z"
+        },
+        {
+            "id": 3,
+            "userId": 4,
+            "username": "zeynep",
+            "avatar": "https://i.pravatar.cc/150?u=4",
+            "contentUrl": "https://images.unsplash.com/photo-1586717791821-3f44a563fa4c?w=800",
+            "createdAt": "2024-01-18T08:45:00Z",
+            "expiresAt": "2024-01-19T08:45:00Z"
+        },
+        {
+            "id": 4,
+            "userId": 5,
+            "username": "ali",
+            "avatar": "https://i.pravatar.cc/150?u=5",
+            "contentUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800",
+            "createdAt": "2024-01-18T07:30:00Z",
+            "expiresAt": "2024-01-19T07:30:00Z"
+        }
+    ],
+    "comments": [
+        {
+            "id": 1,
+            "postId": 1,
+            "userId": 2,
+            "content": "Kesinlikle iş hayatını değiştirecek.",
+            "createdAt": "2024-01-18T10:05:00Z",
+            "username": "ayse"
+        },
+        {
+            "id": 2,
+            "postId": 1,
+            "userId": 3,
+            "content": "Harika bir konu! Daha fazla konuşmalıyız.",
+            "createdAt": "2024-01-18T10:15:00Z",
+            "username": "mehmet"
+        },
+        {
+            "id": 3,
+            "postId": 3,
+            "userId": 4,
+            "content": "React 19 hakkında daha fazla bilgi alabilir miyiz?",
+            "createdAt": "2024-01-16T10:00:00Z",
+            "username": "zeynep"
+        }
+    ],
+    "reactions": []
+}

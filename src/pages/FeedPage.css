@@ -1,0 +1,524 @@
+/* FeedPage.css */
+.feed-page {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    padding-bottom: 80px;
+    /* Space for mobile bottom nav */
+}
+
+.feed-container {
+    max-width: 600px;
+    /* Instagram/Twitter style width */
+    margin: 0 auto;
+    padding: 1rem 0;
+}
+
+/* Feed header removed based on feedback */
+.feed-header {
+    display: none;
+}
+
+/* ================================================
+   STORIES BAR - Modern Instagram Style
+   ================================================ */
+.stories-container {
+    background: var(--bg-primary);
+    border: none;
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.stories-scroll {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 0 1rem;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.stories-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.story-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    min-width: 80px;
+    transition: transform 0.2s ease;
+}
+
+.story-node:active {
+    transform: scale(0.95);
+}
+
+.story-avatar-wrapper {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* New Story Ring - Instagram Gradient */
+.story-avatar-wrapper.new-ring {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    box-shadow: 0 4px 12px rgba(220, 39, 67, 0.3);
+}
+
+/* Seen Story Ring - Subtle Gray */
+.story-avatar-wrapper.seen-ring {
+    background: transparent;
+    border: 2px solid rgba(142, 142, 142, 0.4);
+    padding: 3px;
+}
+
+.story-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid var(--bg-primary);
+    object-fit: cover;
+    background: var(--bg-secondary);
+    position: relative;
+    z-index: 2;
+}
+
+.story-username {
+    font-size: 0.75rem;
+    color: var(--text-primary);
+    text-align: center;
+    max-width: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Add Story Button */
+.add-story-btn {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-pink));
+    border: 3px solid var(--bg-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.add-story-btn:hover {
+    transform: scale(1.1);
+}
+
+/* ================================================
+   STORY VIEWER - Full Screen Experience
+   ================================================ */
+
+/* Progress Bars */
+.story-progress-container {
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 100%;
+    padding: 0 12px;
+    display: flex;
+    gap: 4px;
+    z-index: 30;
+}
+
+.story-progress-bar {
+    height: 3px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}
+
+.story-progress-fill {
+    height: 100%;
+    background: white;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 50ms linear;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+}
+
+/* Header with User Info */
+.story-header {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+    z-index: 25;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+    padding-bottom: 2rem;
+}
+
+.story-user-details {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.story-header-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.story-header-username {
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.story-time {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.85rem;
+    margin-left: 8px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.story-close-btn {
+    color: white;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    opacity: 0.9;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.story-close-btn:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.story-close-btn:active {
+    transform: scale(0.95);
+}
+
+/* Content Area */
+.story-image-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+}
+
+.story-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    user-select: none;
+}
+
+/* Premium Story Footer */
+/* Instagram-like Story Footer */
+.story-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    z-index: 20;
+}
+
+.story-reply-input {
+    flex: 1;
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    /* Thin white border */
+    display: flex;
+    align-items: center;
+    padding: 0 1.25rem;
+    background: transparent;
+    /* Fully transparent */
+    transition: all 0.3s ease;
+}
+
+.story-reply-input:focus-within {
+    border-color: rgba(255, 255, 255, 0.9);
+    background: transparent;
+}
+
+.story-reply-input input {
+    background: transparent;
+    border: none;
+    color: white;
+    flex: 1;
+    font-size: 1rem;
+    height: 100%;
+}
+
+.story-reply-input input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 400;
+}
+
+.story-reply-input input:focus {
+    outline: none;
+}
+
+/* Action Buttons (Like / Send) - Icon Only */
+.story-actions button,
+.story-like-btn,
+.story-send-btn {
+    color: white;
+    font-size: 1.8rem;
+    /* Correct icon size */
+    background: transparent;
+    /* No circle background */
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    backdrop-filter: none;
+    padding: 0 5px;
+}
+
+.story-like-btn:hover,
+.story-send-btn:hover {
+    background: transparent;
+    transform: scale(1.15);
+}
+
+.story-like-btn:active,
+.story-send-btn:active {
+    transform: scale(0.9);
+}
+
+/* Hide old selectors if any conflict */
+.story-actions button {
+    display: none;
+}
+
+
+/* ================================================
+   STORY VIEWER OVERLAY - Full Screen
+   ================================================ */
+
+.story-viewer-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: fadeIn 0.25s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.story-content-wrapper {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    background: #000;
+    animation: scaleUp 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(0.95);
+        opacity: 0.8;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Desktop enhancements */
+@media (min-width: 600px) {
+    .story-viewer-overlay {
+        backdrop-filter: blur(20px);
+        background: rgba(0, 0, 0, 0.95);
+        align-items: center;
+        justify-content: center;
+    }
+
+    .story-content-wrapper {
+        height: 90vh;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* =========================================
+   FIX: Missing Create Post Box Styles
+   ========================================= */
+
+.create-post-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    margin-bottom: 2rem;
+    /* Glass effect */
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+}
+
+.create-post-top {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.cp-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.cp-form {
+    flex: 1;
+    display: flex;
+    gap: 8px;
+    position: relative;
+}
+
+.cp-input {
+    width: 100%;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 99px;
+    /* Pill shape */
+    padding: 10px 20px;
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.cp-input:focus {
+    background: var(--bg-tertiary);
+    border-color: var(--primary-color);
+}
+
+.cp-submit-btn {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    padding: 0 8px;
+    transition: transform 0.2s;
+}
+
+.cp-submit-btn:disabled {
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+.cp-submit-btn:not(:disabled):hover {
+    transform: scale(1.1);
+}
+
+.cp-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 8px 0;
+}
+
+.create-post-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.cp-action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 0;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.cp-action-btn:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.photo-btn svg {
+    color: var(--accent-green);
+}
+
+.video-btn svg {
+    color: var(--accent-orange);
+}
+
+.location-btn svg {
+    color: var(--accent-pink);
+}
