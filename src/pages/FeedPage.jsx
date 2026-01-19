@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import { motion } from 'framer-motion'
 import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard'
 import StoriesBar from '../components/StoriesBar'
-import { FaImage, FaVideo, FaMapMarkerAlt, FaPaperPlane } from 'react-icons/fa'
+import { FaImage, FaVideo, FaMapMarkerAlt, FaPaperPlane, FaFlag } from 'react-icons/fa'
 import { postApi, groupApi } from '../services/apiService'
 import { setPosts, setSpotlightPosts, addPost } from '../store/slices/postSlice'
 import { setGroups } from '../store/slices/groupSlice'
@@ -18,7 +19,7 @@ function FeedPage() {
     const [loading, setLoading] = useState(true)
     const [newPost, setNewPost] = useState('')
     const [isAnonymous, setIsAnonymous] = useState(false)
-    const [selectedGroup, setSelectedGroup] = useState(null)
+    const [selectedGroup, setSelectedGroup] = useState('')
 
     useEffect(() => {
         loadData()
@@ -27,22 +28,13 @@ function FeedPage() {
     const loadData = async () => {
         try {
             setLoading(true)
-
-            // Fetch all posts from API (mock backend)
             const allPosts = await postApi.getAllPosts()
-            // Sort by date descending
             allPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-
-            // Separate spotlight posts (e.g., those with many likes/flag, here just filtering or taking subset)
-            // In a real app backend would handle this, but for now we filter client side or backend parameter
             const spotlights = await postApi.getSpotlightPosts()
-
             dispatch(setPosts(allPosts))
             dispatch(setSpotlightPosts(spotlights))
-
             const groupsData = await groupApi.getAllGroups()
             dispatch(setGroups(groupsData))
-
         } catch (error) {
             console.error('Error loading data:', error)
         } finally {
@@ -57,7 +49,7 @@ function FeedPage() {
         try {
             const postData = {
                 userId: user.userId,
-                groupId: selectedGroup,
+                groupId: parseInt(selectedGroup),
                 content: newPost,
                 isAnonymous: isAnonymous
             }
@@ -73,7 +65,18 @@ function FeedPage() {
 
     return (
         <div className="feed-page">
-            <div className="feed-container">
+            <Navbar />
+            <motion.div
+                className="feed-container"
+                initial={{ opacity: 0, scale: 0.98 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+            >
+                <div className="td-mode-banner card-glass">
+                    <FaFlag className="banner-icon" />
+                    <span>Türk Dünyası Modu Aktif</span>
+                </div>
+
                 {/* Stories Section */}
                 <StoriesBar />
 
@@ -91,11 +94,33 @@ function FeedPage() {
                                 onChange={(e) => setNewPost(e.target.value)}
                                 className="cp-input"
                             />
-                            <button type="submit" className="cp-submit-btn" disabled={!newPost.trim()}>
+                            <button type="submit" className="cp-submit-btn" disabled={!newPost.trim() || !selectedGroup}>
                                 <FaPaperPlane />
                             </button>
                         </form>
                     </div>
+
+                    <div className="cp-group-selector">
+                        <select
+                            value={selectedGroup}
+                            onChange={(e) => setSelectedGroup(e.target.value)}
+                            className="group-select"
+                        >
+                            <option value="">Grup Seçin...</option>
+                            {groups.map(group => (
+                                <option key={group.id} value={group.id}>{group.name}</option>
+                            ))}
+                        </select>
+                        <label className="anon-toggle">
+                            <input
+                                type="checkbox"
+                                checked={isAnonymous}
+                                onChange={(e) => setIsAnonymous(e.target.checked)}
+                            />
+                            <span>Anonim Paylaş</span>
+                        </label>
+                    </div>
+
                     <div className="cp-divider"></div>
                     <div className="create-post-actions">
                         <button className="cp-action-btn photo-btn">
@@ -110,7 +135,7 @@ function FeedPage() {
                     </div>
                 </div>
 
-                {/* Spotlight Section - Moved below create post as per flow */}
+                {/* Spotlight Section */}
                 {spotlightPosts && spotlightPosts.length > 0 && (
                     <div className="spotlight-section">
                         <h2 className="spotlight-title">
@@ -128,19 +153,20 @@ function FeedPage() {
                         <div className="spinner"></div>
                         <p>Yükleniyor...</p>
                     </div>
-                ) : posts && posts.length > 0 ? (
+                ) : (
                     <div className="posts-list">
-                        {posts.map(post => (
+                        {posts && posts.map(post => (
                             <PostCard key={post.id} post={post} />
                         ))}
-                    </div>
-                ) : (
-                    <div className="empty-state">
-                        <h3>Henüz paylaşım yok</h3>
-                        <p>İlk paylaşımı sen yap!</p>
+                        {(!posts || posts.length === 0) && (
+                            <div className="empty-state">
+                                <h3>Henüz paylaşım yok</h3>
+                                <p>İlk paylaşımı sen yap!</p>
+                            </div>
+                        )}
                     </div>
                 )}
-            </div>
+            </motion.div>
         </div>
     )
 }

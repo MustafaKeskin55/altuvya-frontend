@@ -48,7 +48,7 @@ function RegisterPage() {
                 },
                 token: response.token
             }))
-            navigate('/feed')
+            navigate('/anasayfa')
         } catch (err) {
             const errorMsg = err.response?.data?.message || 'Kayıt başarısız'
             setError(errorMsg)

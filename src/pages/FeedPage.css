@@ -13,6 +13,56 @@
     padding: 1rem 0;
 }
 
+.posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Türk Dünyası Mode Banner */
+.td-mode-banner {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(52, 152, 219, 0.3);
+    background: linear-gradient(90deg, rgba(52, 152, 219, 0.1) 0%, transparent 100%);
+}
+
+.banner-icon {
+    font-size: 1.4rem;
+    color: #3498db;
+    animation: pulseIcon 2s infinite;
+}
+
+.td-mode-banner span {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+@keyframes pulseIcon {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+}
+
 /* Feed header removed based on feedback */
 .feed-header {
     display: none;
@@ -521,4 +571,62 @@
 
 .location-btn svg {
     color: var(--accent-pink);
+}
+
+/* Group Selector Styles */
+.cp-group-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    gap: 12px;
+}
+
+.group-select {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    padding: 6px 12px;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    outline: none;
+    flex: 1;
+    cursor: pointer;
+}
+
+.group-select:focus {
+    border-color: var(--primary-color);
+}
+
+.anon-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.anon-toggle input {
+    cursor: pointer;
+}
+
+/* Spotlight Section Improvements */
+.spotlight-section {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
+    border-radius: var(--radius-lg);
+    border: 1px dashed rgba(245, 158, 11, 0.2);
+}
+
+.spotlight-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--accent-orange);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

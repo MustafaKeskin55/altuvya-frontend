@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { FaPlus, FaTimes, FaHeart, FaPaperPlane } from 'react-icons/fa'
-import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io'
+import { postApi } from '../../services/apiService'
 import '../../pages/FeedPage.css'
 
 function StoriesBar() {
@@ -23,19 +23,8 @@ function StoriesBar() {
     useEffect(() => {
         const fetchStories = async () => {
             try {
-                const response = await fetch('http://localhost:8080/stories')
-                console.log('Stories fetch response:', response.status)
-                if (!response.ok) throw new Error('Failed to fetch stories')
-
-                const data = await response.json()
-                console.log('Stories data received:', data)
-
-                if (Array.isArray(data)) {
-                    setStories(data)
-                } else {
-                    console.error('Stories data is not an array:', data)
-                    setStories([])
-                }
+                const data = await postApi.getStories()
+                setStories(Array.isArray(data) ? data : [])
                 setError(null)
             } catch (error) {
                 console.error('Error fetching stories:', error)
@@ -226,7 +215,6 @@ function StoriesBar() {
                     >
                         {/* Progress Bar */}
                         <div className="story-progress-container">
-                            {/* Render bars for all stories to look like Insta - simplified for now to single current bar */}
                             <div className="story-progress-bar">
                                 <div
                                     className="story-progress-fill"
@@ -251,7 +239,6 @@ function StoriesBar() {
 
                         {/* Main Image */}
                         <div className="story-image-container">
-                            {/* Improved Image Display */}
                             <img src={selectedStory.contentUrl} alt="Story" className="story-main-image" />
                         </div>
 
@@ -264,7 +251,6 @@ function StoriesBar() {
                                     onFocus={handleMessageFocus}
                                     onBlur={handleMessageBlur}
                                 />
-                                { /* Only show send button if typing? For now always */}
                             </div>
                             <button className="story-like-btn" onClick={toggleLike}>
                                 <FaHeart color={isLiked ? "#ff3040" : "white"} />

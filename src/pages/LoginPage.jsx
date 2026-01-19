@@ -40,7 +40,7 @@ function LoginPage() {
                 },
                 token: response.token
             }))
-            navigate('/feed')
+            navigate('/anasayfa')
         } catch (err) {
             const errorMsg = err.response?.data?.message || 'Giriş başarısız'
             setError(errorMsg)
@@ -75,7 +75,7 @@ function LoginPage() {
                 },
                 token: 'demo-token-123'
             }))
-            navigate('/feed')
+            navigate('/anasayfa')
         } catch (err) {
             setError('Demo girişi başarısız')
             setLoading(false)

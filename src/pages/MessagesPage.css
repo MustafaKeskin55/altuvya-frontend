@@ -1,0 +1,92 @@
+/* Messages Page Styling */
+.messages-page {
+    min-height: 100vh;
+    background: var(--bg-primary);
+    padding-bottom: 80px;
+}
+
+.messages-container-full {
+    padding-top: 20px;
+    height: calc(100vh - 100px);
+    /* Adjust based on navbar height */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.social-chat-view {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 1rem;
+}
+
+.social-chat-container {
+    width: 100%;
+    max-width: 1000px;
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    overflow: hidden;
+    height: 100%;
+}
+
+.social-chat-sidebar {
+    width: 350px;
+    border-right: 1px solid var(--border-subtle);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.social-chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .messages-container-full {
+        height: calc(100vh - 60px);
+        padding-top: 0;
+    }
+
+    .social-chat-view {
+        padding: 0;
+    }
+
+    .social-chat-container {
+        border-radius: 0;
+        border: none;
+    }
+
+    .social-chat-sidebar {
+        width: 100%;
+    }
+
+    .social-chat-main {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1100;
+        background: var(--bg-primary);
+    }
+
+    .mobile-hidden {
+        display: none !important;
+    }
+}

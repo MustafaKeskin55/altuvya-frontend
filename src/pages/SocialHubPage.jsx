@@ -41,22 +41,58 @@ function SocialHubPage() {
     }
 
     // --- MESSAGES LOGIC ---
+    const [chats, setChats] = useState([])
     const [activeChat, setActiveChat] = useState(null)
+    const [messages, setMessages] = useState([])
     const [messageInput, setMessageInput] = useState('')
 
-    // Mock Chats (Same as ChatModal)
-    const chats = [
-        { id: 1, name: 'Ayşe Yılmaz', lastMsg: 'Yarın notları getirebilir misin?', time: '14:30', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ayse', unread: 2 },
-        { id: 2, name: 'Proje Grubu', lastMsg: 'Ahmet: Dosyayı yükledim.', time: '12:15', avatar: 'https://api.dicebear.com/7.x/initials/svg?seed=PG', unread: 0 },
-        { id: 3, name: 'Mehmet K.', lastMsg: 'Tamamdır, haberleşiriz.', time: 'Dün', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Mehmet', unread: 0 },
-        { id: 4, name: 'Zeynep Tasarım', lastMsg: 'Logo renkleri nasıl olsun?', time: 'Dün', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Zeynep', unread: 5 },
-    ]
+    useEffect(() => {
+        loadChats()
+    }, [])
 
-    const messages = [
-        { id: 1, text: 'Selam, nasılsın?', sender: 'them', time: '14:28' },
-        { id: 2, text: 'İyiyim teşekkürler, sen?', sender: 'me', time: '14:29' },
-        { id: 3, text: 'Yarın notları getirebilir misin? Sınav için lazım da.', sender: 'them', time: '14:30' },
-    ]
+    const loadChats = async () => {
+        try {
+            // Using a generic method or a new one in service
+            const data = await groupApi.getAllChats?.() || []
+            setChats(data)
+        } catch (error) {
+            console.error('Error loading chats:', error)
+        }
+    }
+
+    useEffect(() => {
+        if (activeChat) {
+            loadMessages(activeChat.id)
+        }
+    }, [activeChat])
+
+    const loadMessages = async (chatId) => {
+        try {
+            const data = await groupApi.getMessagesByChat?.(chatId) || []
+            setMessages(data)
+        } catch (error) {
+            console.error('Error loading messages:', error)
+        }
+    }
+
+    const handleSendMessage = async (e) => {
+        e.preventDefault()
+        if (!messageInput.trim() || !activeChat) return
+
+        try {
+            const newMessage = {
+                chatId: activeChat.id,
+                text: messageInput,
+                sender: 'me',
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            }
+            // Logic to save message would go here usually
+            setMessages([...messages, { id: Date.now(), ...newMessage }])
+            setMessageInput('')
+        } catch (error) {
+            console.error('Error sending message:', error)
+        }
+    }
 
     return (
         <div className="social-hub-page">
@@ -132,17 +168,17 @@ function SocialHubPage() {
                                             ))}
                                         </div>
 
-                                        <div className="chat-input-area">
+                                        <form className="chat-input-area" onSubmit={handleSendMessage}>
                                             <input
                                                 type="text"
                                                 placeholder="Bir mesaj yazın..."
                                                 value={messageInput}
                                                 onChange={(e) => setMessageInput(e.target.value)}
                                             />
-                                            <button className="send-btn">
+                                            <button className="send-btn" type="submit">
                                                 <FaPaperPlane />
                                             </button>
-                                        </div>
+                                        </form>
                                     </>
                                 ) : (
                                     <div className="no-chat-selected">
