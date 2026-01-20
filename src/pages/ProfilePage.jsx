@@ -15,7 +15,7 @@ function ProfilePage() {
     const [isFollowing, setIsFollowing] = useState(false)
     const [activeTab, setActiveTab] = useState('posts')
 
-    const isOwnProfile = currentUser?.username === username
+    const isOwnProfile = currentUser?.username === decodeURIComponent(username)
 
     useEffect(() => {
         const decodedUsername = decodeURIComponent(username)
@@ -43,20 +43,28 @@ function ProfilePage() {
         }
     }
 
+    const filteredContent = () => {
+        if (activeTab === 'media') {
+            return userPosts.filter(p => p.mediaUrl)
+        }
+        if (activeTab === 'text') {
+            return userPosts.filter(p => !p.mediaUrl)
+        }
+        return userPosts
+    }
+
     const handleFollow = () => {
         setIsFollowing(!isFollowing)
-        // TODO: API call to follow/unfollow
     }
 
     const handleMessage = () => {
-        // TODO: Open message modal
         alert('Mesajlaşma özelliği yakında eklenecek!')
     }
 
     if (loading) {
         return (
-            <div className="profile-page-wrapper" style={{ paddingBottom: '80px' }}>
-                <div className="loading">
+            <div className="profile-page-wrapper">
+                <div className="loading-container">
                     <div className="spinner"></div>
                     <p>Yükleniyor...</p>
                 </div>
@@ -66,22 +74,24 @@ function ProfilePage() {
 
     if (!profileUser) {
         return (
-            <div className="profile-page-wrapper" style={{ paddingBottom: '80px' }}>
+            <div className="profile-page-wrapper">
                 <div className="empty-state">
                     <h3>Kullanıcı bulunamadı</h3>
+                    <p>Aradığınız profil mevcut değil veya taşınmış olabilir.</p>
                 </div>
             </div>
         )
     }
 
-    return (
-        <div className="profile-page-wrapper" style={{ paddingBottom: '80px' }}>
+    const content = filteredContent()
 
+    return (
+        <div className="profile-page-wrapper">
             <div className="profile-content">
                 {/* Banner */}
                 <div className="profile-banner-container">
                     <img
-                        src={profileUser.banner || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80"}
+                        src={profileUser.banner || "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200"}
                         alt="Banner"
                         className="profile-banner"
                     />
@@ -91,7 +101,7 @@ function ProfilePage() {
                 <div className="profile-header-section">
                     <div className="profile-avatar-container">
                         <img
-                            src={profileUser.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`}
+                            src={profileUser.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profileUser.username}`}
                             alt="Avatar"
                             className="profile-avatar-img"
                         />
@@ -99,18 +109,18 @@ function ProfilePage() {
 
                     <div className="profile-actions">
                         {isOwnProfile ? (
-                            <button className="btn-primary follow-btn">
-                                <FaCog /> Profili Düzenle
+                            <button className="btn-edit-profile">
+                                <FaCog /> Düzenle
                             </button>
                         ) : (
                             <>
                                 <button
-                                    className={`btn-primary follow-btn ${isFollowing ? 'following' : ''}`}
+                                    className={`btn-follow ${isFollowing ? 'following' : ''}`}
                                     onClick={handleFollow}
                                 >
                                     {isFollowing ? 'Takipten Çık' : 'Takip Et'}
                                 </button>
-                                <button className="btn-secondary message-btn" onClick={handleMessage}>
+                                <button className="btn-msg" onClick={handleMessage}>
                                     Mesaj
                                 </button>
                             </>
@@ -124,9 +134,8 @@ function ProfilePage() {
                         {profileUser.bio && <p className="profile-bio">{profileUser.bio}</p>}
 
                         <div className="profile-meta">
-                            {profileUser.email && (
-                                <span><FaLink /> {profileUser.email}</span>
-                            )}
+                            {profileUser.location && <span><FaMapMarkerAlt /> {profileUser.location}</span>}
+                            <span><FaCalendarAlt /> Katıldı: Ocak 2024</span>
                         </div>
 
                         <div className="profile-stats">
@@ -179,38 +188,20 @@ function ProfilePage() {
                 </div>
 
                 {/* Content Lists */}
-                {activeTab === 'posts' && (
+                {activeTab !== 'career' ? (
                     <div className="profile-posts-list">
-                        {userPosts.length > 0 ? (
-                            userPosts.map(post => (
+                        {content.length > 0 ? (
+                            content.map(post => (
                                 <PostCard key={post.id} post={post} />
                             ))
                         ) : (
                             <div className="empty-state">
-                                <h3>Henüz gönderi yok</h3>
-                                <p>Bu kullanıcı henüz bir şey paylaşmadı.</p>
+                                <h3>Henüz içerik yok</h3>
+                                <p>Bu sekmede gösterilecek bir şey bulunamadı.</p>
                             </div>
                         )}
                     </div>
-                )}
-
-                {activeTab === 'media' && (
-                    <div className="profile-posts-list">
-                        <div className="empty-state">
-                            <p>Medya içeriği bulunamadı.</p>
-                        </div>
-                    </div>
-                )}
-
-                {activeTab === 'text' && (
-                    <div className="profile-posts-list">
-                        <div className="empty-state">
-                            <p>Metin tabanlı gönderi bulunamadı.</p>
-                        </div>
-                    </div>
-                )}
-
-                {activeTab === 'career' && (
+                ) : (
                     <div className="profile-career-section card-glass">
                         <h3>🎓 Öğrenci CV & Kariyer</h3>
                         <div className="cv-item">
@@ -225,7 +216,7 @@ function ProfilePage() {
                             <strong>İlgi Alanları:</strong>
                             <p>Yazılım Geliştirme, Tasarım, Türk Dünyası</p>
                         </div>
-                        <button className="btn-primary" style={{ marginTop: '1rem' }}>CV Görüntüle</button>
+                        <button className="btn-view-cv" style={{ marginTop: '1rem' }}>CV Görüntüle</button>
                     </div>
                 )}
             </div>
