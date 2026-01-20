@@ -58,6 +58,12 @@ export const mockUserApi = {
         await delay();
         db.update('users', parseInt(id), userData);
         return db.find('users', { id: parseInt(id) });
+    },
+
+    getUserGroups: async (username) => {
+        await delay();
+        // For demo: return all groups
+        return db.get('groups');
     }
 };
 

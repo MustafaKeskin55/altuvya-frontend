@@ -202,12 +202,14 @@
     background: transparent;
     border: none;
     color: var(--text-secondary);
-    padding: 1rem 0.5rem;
+    padding: 1rem 0;
     cursor: pointer;
     border-bottom: 3px solid transparent;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     transition: all 0.2s;
+    flex: 1;
+    text-align: center;
 }
 
 .profile-tabs .tab.active {
@@ -220,6 +222,56 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+}
+
+.profile-groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+}
+
+.profile-group-card {
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.profile-group-card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--primary-color);
+}
+
+.group-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.group-card-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: white;
+}
+
+.group-card-header span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.profile-group-card p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-clamp: 2;
+    overflow: hidden;
 }
 
 /* Career Section Premium UI */

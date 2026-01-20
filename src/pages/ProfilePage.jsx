@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { motion, AnimatePresence } from 'framer-motion'
 import PostCard from '../components/PostCard'
@@ -9,12 +9,15 @@ import './ProfilePage.css'
 
 function ProfilePage() {
     const { username } = useParams()
+    const navigate = useNavigate()
     const { user: currentUser } = useSelector((state) => state.auth)
     const [profileUser, setProfileUser] = useState(null)
     const [userPosts, setUserPosts] = useState([])
+    const [userGroups, setUserGroups] = useState([])
     const [loading, setLoading] = useState(true)
     const [isFollowing, setIsFollowing] = useState(false)
     const [activeTab, setActiveTab] = useState('posts')
+    const { turanMode } = useSelector(state => state.ui)
 
     const isOwnProfile = currentUser?.username === decodeURIComponent(username)
 
@@ -36,6 +39,10 @@ function ProfilePage() {
             const allPosts = await postApi.getAllPosts()
             const filteredPosts = allPosts.filter(post => post.username === targetUsername)
             setUserPosts(filteredPosts)
+
+            // Fetch user's groups (Mock)
+            const allGroups = await userApi.getUserGroups(targetUsername)
+            setUserGroups(allGroups || [])
         } catch (error) {
             console.error('Error loading profile:', error)
             setProfileUser(null)
@@ -97,6 +104,24 @@ function ProfilePage() {
             animate={{ opacity: 1 }}
         >
             <div className="profile-content">
+                {turanMode && (
+                    <motion.div
+                        className="turan-banner-mini"
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        style={{
+                            background: 'rgba(255, 107, 0, 0.1)',
+                            borderBottom: '1px solid rgba(255, 107, 0, 0.2)',
+                            padding: '10px',
+                            textAlign: 'center',
+                            fontSize: '0.85rem',
+                            color: 'var(--primary-color)',
+                            fontWeight: '600'
+                        }}
+                    >
+                        🇹🇷 Türk Dünyası Modu Aktif
+                    </motion.div>
+                )}
                 {/* Banner */}
                 <div className="profile-banner-container">
                     <img
@@ -210,6 +235,12 @@ function ProfilePage() {
                         Metin
                     </button>
                     <button
+                        className={`tab ${activeTab === 'groups' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('groups')}
+                    >
+                        Gruplar
+                    </button>
+                    <button
                         className={`tab ${activeTab === 'career' ? 'active' : ''}`}
                         onClick={() => setActiveTab('career')}
                     >
@@ -218,20 +249,7 @@ function ProfilePage() {
                 </div>
 
                 {/* Content Lists */}
-                {activeTab !== 'career' ? (
-                    <div className="profile-posts-list">
-                        {content.length > 0 ? (
-                            content.map(post => (
-                                <PostCard key={post.id} post={post} />
-                            ))
-                        ) : (
-                            <div className="empty-state">
-                                <h3>Henüz içerik yok</h3>
-                                <p>Bu sekmede gösterilecek bir şey bulunamadı.</p>
-                            </div>
-                        )}
-                    </div>
-                ) : (
+                {activeTab === 'career' ? (
                     <div className="profile-career-section card-glass">
                         <h3>🎓 Öğrenci CV & Kariyer</h3>
                         <div className="cv-item">
@@ -247,6 +265,38 @@ function ProfilePage() {
                             <p>Yazılım Geliştirme, Tasarım, Türk Dünyası</p>
                         </div>
                         <button className="btn-view-cv" style={{ marginTop: '1rem' }}>CV Görüntüle</button>
+                    </div>
+                ) : activeTab === 'groups' ? (
+                    <div className="profile-groups-grid">
+                        {userGroups.length > 0 ? (
+                            userGroups.map(group => (
+                                <div key={group.id} className="profile-group-card card-glass" onClick={() => navigate(`/groups/${group.id}`)}>
+                                    <div className="group-card-header">
+                                        <h4>{group.name}</h4>
+                                        <span>{group.memberCount} üye</span>
+                                    </div>
+                                    <p>{group.description}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <div className="empty-state">
+                                <h3>Grup bulunamadı</h3>
+                                <p>Bu kullanıcı henüz bir gruba katılmamış.</p>
+                            </div>
+                        )}
+                    </div>
+                ) : (
+                    <div className="profile-posts-list">
+                        {content.length > 0 ? (
+                            content.map(post => (
+                                <PostCard key={post.id} post={post} />
+                            ))
+                        ) : (
+                            <div className="empty-state">
+                                <h3>Henüz içerik yok</h3>
+                                <p>Bu sekmede gösterilecek bir şey bulunamadı.</p>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

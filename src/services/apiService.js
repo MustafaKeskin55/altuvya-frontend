@@ -30,6 +30,11 @@ export const userApi = USE_MOCK ? mock.mockUserApi : {
     updateUser: async (id, userData) => {
         const response = await api.put(`/users/${id}`, userData)
         return response.data
+    },
+
+    getUserGroups: async (username) => {
+        const response = await api.get(`/users/${username}/groups`)
+        return response.data
     }
 }
 

@@ -22,19 +22,16 @@ function BottomNav() {
             {/* 1. Akış */}
             <Link to="/anasayfa" className={`nav-item ${isActive('/anasayfa') ? 'active' : ''}`}>
                 <FaHome className="nav-icon" />
-                <span className="nav-label">Akış</span>
             </Link>
 
             {/* 2. Keşfet */}
             <Link to="/kesfet" className={`nav-item ${isActive('/kesfet') ? 'active' : ''}`}>
                 <FaSearch className="nav-icon" />
-                <span className="nav-label">Keşfet</span>
             </Link>
 
             {/* 3. Mesajlar (Right of Explore) */}
             <Link to="/messages" className={`nav-item ${isActive('/messages') ? 'active' : ''}`}>
                 <FaComment className="nav-icon" />
-                <span className="nav-label">Mesajlar</span>
             </Link>
 
             {/* 4. Turan Portal - Center Action */}
@@ -51,13 +48,11 @@ function BottomNav() {
             {/* 5. Gruplar (Right of Turan) */}
             <Link to="/groups" className={`nav-item ${isActive('/groups') ? 'active' : ''}`}>
                 <FaUsers className="nav-icon" />
-                <span className="nav-label">Gruplar</span>
             </Link>
 
             {/* 6. Bildirimler */}
             <Link to="/notifications" className={`nav-item ${isActive('/notifications') ? 'active' : ''}`}>
                 <FaBell className="nav-icon" />
-                <span className="nav-label">Bildirimler</span>
             </Link>
 
             {/* 7. Profil */}
@@ -66,7 +61,6 @@ function BottomNav() {
                 className={`nav-item ${isActive(user ? `/profile/${encodeURIComponent(user.username)}` : '/login') ? 'active' : ''}`}
             >
                 <FaUser className="nav-icon" />
-                <span className="nav-label">Profil</span>
             </Link>
         </nav>
     )
