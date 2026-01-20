@@ -1,4 +1,7 @@
+import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import { motion } from 'framer-motion'
+import { FaSearch, FaVideo, FaClone } from 'react-icons/fa'
 import MoodSelector from '../components/MoodSelector'
 import './ExplorePage.css'
 
