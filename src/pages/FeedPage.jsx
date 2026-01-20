@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { motion } from 'framer-motion'
-import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard'
-import StoriesBar from '../components/StoriesBar'
+import FlashPostBar from '../components/FlashPostBar'
 import { FaImage, FaVideo, FaMapMarkerAlt, FaPaperPlane, FaFlag } from 'react-icons/fa'
 import { postApi, groupApi } from '../services/apiService'
 import { setPosts, setSpotlightPosts, addPost } from '../store/slices/postSlice'
@@ -12,35 +11,47 @@ import './FeedPage.css'
 
 function FeedPage() {
     const dispatch = useDispatch()
-    const { user } = useSelector((state) => state.auth)
-    const { posts, spotlightPosts } = useSelector((state) => state.posts)
-    const { groups } = useSelector((state) => state.groups)
+    const { posts = [], spotlightPosts = [] } = useSelector((state) => state.posts || {})
+    const { groups = [] } = useSelector((state) => state.groups || {})
+    const { user } = useSelector((state) => state.auth || {})
 
     const [loading, setLoading] = useState(true)
     const [newPost, setNewPost] = useState('')
     const [isAnonymous, setIsAnonymous] = useState(false)
     const [selectedGroup, setSelectedGroup] = useState('')
+    const [activeTab, setActiveTab] = useState('feed')
+
+    const { turanMode } = useSelector((state) => state.ui || {})
+
+    // Student Only Tabs configuration
+    const isStudent = true // Mock: In real app check user.role === 'student'
 
     useEffect(() => {
-        loadData()
-    }, [])
+        let isMounted = true;
+        const loadInitialData = async () => {
+            try {
+                setLoading(true)
+                const [allPosts, spotlights, groupsData] = await Promise.all([
+                    postApi.getAllPosts(),
+                    postApi.getSpotlightPosts(),
+                    groupApi.getAllGroups()
+                ]);
 
-    const loadData = async () => {
-        try {
-            setLoading(true)
-            const allPosts = await postApi.getAllPosts()
-            allPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-            const spotlights = await postApi.getSpotlightPosts()
-            dispatch(setPosts(allPosts))
-            dispatch(setSpotlightPosts(spotlights))
-            const groupsData = await groupApi.getAllGroups()
-            dispatch(setGroups(groupsData))
-        } catch (error) {
-            console.error('Error loading data:', error)
-        } finally {
-            setLoading(false)
+                if (isMounted) {
+                    dispatch(setPosts(allPosts))
+                    dispatch(setSpotlightPosts(spotlights))
+                    dispatch(setGroups(groupsData))
+                }
+            } catch (error) {
+                console.error('Error loading data:', error)
+            } finally {
+                if (isMounted) setLoading(false)
+            }
         }
-    }
+
+        loadInitialData()
+        return () => { isMounted = false };
+    }, [dispatch])
 
     const handleCreatePost = async (e) => {
         e.preventDefault()
@@ -64,21 +75,52 @@ function FeedPage() {
     }
 
     return (
-        <div className="feed-page">
-            <Navbar />
+        <div className="feed-page" style={{ paddingBottom: '80px', paddingTop: isStudent ? '50px' : '0' }}>
+            {/* Student Top Navigation Layer */}
+            {isStudent && (
+                <div className="student-top-nav card-glass">
+                    <button
+                        className={`st-nav-item ${activeTab === 'feed' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('feed')}
+                    >
+                        Akış
+                    </button>
+                    <button
+                        className={`st-nav-item ${activeTab === 'campus' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('campus')}
+                    >
+                        Kampüs
+                    </button>
+                    <button
+                        className={`st-nav-item ${activeTab === 'events' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('events')}
+                    >
+                        Etkinlikler
+                    </button>
+                    <button
+                        className={`st-nav-item ${activeTab === 'career' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('career')}
+                    >
+                        Kariyer
+                    </button>
+                </div>
+            )}
+
             <motion.div
                 className="feed-container"
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="td-mode-banner card-glass">
-                    <FaFlag className="banner-icon" />
-                    <span>Türk Dünyası Modu Aktif</span>
-                </div>
+                {turanMode && (
+                    <div className="td-mode-banner card-glass">
+                        <FaFlag className="banner-icon" />
+                        <span>Türk Dünyası Modu Aktif</span>
+                    </div>
+                )}
 
-                {/* Stories Section */}
-                <StoriesBar />
+                {/* Flash Posts (formerly Stories) */}
+                <FlashPostBar />
 
                 {/* Create Post - Rich Style */}
                 <div className="create-post-box card-glass">

@@ -1,12 +1,16 @@
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import { FaFlag, FaChevronRight } from 'react-icons/fa'
+import { setTuranMode } from '../store/slices/uiSlice'
 import './TurkDunyasiPortal.css'
 
 function TurkDunyasiPortal() {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleExplore = () => {
+        dispatch(setTuranMode(true))
         navigate('/anasayfa')
     }
 

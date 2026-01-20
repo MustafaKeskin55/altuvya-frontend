@@ -87,7 +87,7 @@ function PostCard({ post }) {
 
     const handleProfileClick = () => {
         if (post.username && !post.isAnonymous) {
-            navigate(`/profile/${post.username}`)
+            navigate(`/profile/${encodeURIComponent(post.username)}`)
         }
     }
 

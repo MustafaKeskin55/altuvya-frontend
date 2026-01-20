@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard'
 import { FaGraduationCap, FaMapMarkerAlt, FaLink, FaCalendarAlt, FaCog } from 'react-icons/fa'
 import { userApi, postApi } from '../services/apiService'
@@ -19,24 +18,26 @@ function ProfilePage() {
     const isOwnProfile = currentUser?.username === username
 
     useEffect(() => {
-        loadProfileData()
+        const decodedUsername = decodeURIComponent(username)
+        loadProfileData(decodedUsername)
     }, [username])
 
-    const loadProfileData = async () => {
+    const loadProfileData = async (targetUsername) => {
         try {
             setLoading(true)
             // Fetch user data from API
-            const userData = await userApi.getUserByUsername(username)
-            if (userData && userData.length > 0) {
-                setProfileUser(userData[0])
+            const userData = await userApi.getUserByUsername(targetUsername)
+            if (userData) {
+                setProfileUser(userData)
             }
 
             // Fetch user's posts
             const allPosts = await postApi.getAllPosts()
-            const filteredPosts = allPosts.filter(post => post.username === username)
+            const filteredPosts = allPosts.filter(post => post.username === targetUsername)
             setUserPosts(filteredPosts)
         } catch (error) {
             console.error('Error loading profile:', error)
+            setProfileUser(null)
         } finally {
             setLoading(false)
         }
@@ -54,8 +55,7 @@ function ProfilePage() {
 
     if (loading) {
         return (
-            <div className="profile-page-wrapper">
-                <Navbar />
+            <div className="profile-page-wrapper" style={{ paddingBottom: '80px' }}>
                 <div className="loading">
                     <div className="spinner"></div>
                     <p>Yükleniyor...</p>
@@ -66,8 +66,7 @@ function ProfilePage() {
 
     if (!profileUser) {
         return (
-            <div className="profile-page-wrapper">
-                <Navbar />
+            <div className="profile-page-wrapper" style={{ paddingBottom: '80px' }}>
                 <div className="empty-state">
                     <h3>Kullanıcı bulunamadı</h3>
                 </div>
@@ -76,8 +75,7 @@ function ProfilePage() {
     }
 
     return (
-        <div className="profile-page-wrapper">
-            <Navbar />
+        <div className="profile-page-wrapper" style={{ paddingBottom: '80px' }}>
 
             <div className="profile-content">
                 {/* Banner */}
@@ -167,14 +165,20 @@ function ProfilePage() {
                         Medya
                     </button>
                     <button
-                        className={`tab ${activeTab === 'likes' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('likes')}
+                        className={`tab ${activeTab === 'text' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('text')}
                     >
-                        Beğenilenler
+                        Metin
+                    </button>
+                    <button
+                        className={`tab ${activeTab === 'career' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('career')}
+                    >
+                        CV/Kariyer
                     </button>
                 </div>
 
-                {/* Posts List */}
+                {/* Content Lists */}
                 {activeTab === 'posts' && (
                     <div className="profile-posts-list">
                         {userPosts.length > 0 ? (
@@ -191,16 +195,37 @@ function ProfilePage() {
                 )}
 
                 {activeTab === 'media' && (
-                    <div className="empty-state">
-                        <h3>Medya gönderileri</h3>
-                        <p>Yakında eklenecek!</p>
+                    <div className="profile-posts-list">
+                        <div className="empty-state">
+                            <p>Medya içeriği bulunamadı.</p>
+                        </div>
                     </div>
                 )}
 
-                {activeTab === 'likes' && (
-                    <div className="empty-state">
-                        <h3>Beğenilen gönderiler</h3>
-                        <p>Yakında eklenecek!</p>
+                {activeTab === 'text' && (
+                    <div className="profile-posts-list">
+                        <div className="empty-state">
+                            <p>Metin tabanlı gönderi bulunamadı.</p>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'career' && (
+                    <div className="profile-career-section card-glass">
+                        <h3>🎓 Öğrenci CV & Kariyer</h3>
+                        <div className="cv-item">
+                            <strong>Eğitim:</strong>
+                            <p>Üniversite Öğrencisi @ Altuvya Kampüsü</p>
+                        </div>
+                        <div className="cv-item">
+                            <strong>Bölüm:</strong>
+                            <p>Bilgisayar Mühendisliği</p>
+                        </div>
+                        <div className="cv-item">
+                            <strong>İlgi Alanları:</strong>
+                            <p>Yazılım Geliştirme, Tasarım, Türk Dünyası</p>
+                        </div>
+                        <button className="btn-primary" style={{ marginTop: '1rem' }}>CV Görüntüle</button>
                     </div>
                 )}
             </div>

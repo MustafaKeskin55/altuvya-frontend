@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 import { FaUsers } from 'react-icons/fa'
 import './GroupsPage.css'
 
@@ -63,9 +62,7 @@ function GroupsPage() {
     }
 
     return (
-        <div className="groups-page">
-            <Navbar />
-
+        <div className="groups-page" style={{ paddingBottom: '80px' }}>
             <div className="groups-container">
                 <div className="groups-header">
                     <h1>Gruplar</h1>

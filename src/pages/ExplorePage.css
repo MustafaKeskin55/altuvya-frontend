@@ -1,0 +1,138 @@
+.explore-page {
+    padding-bottom: 80px;
+}
+
+.explore-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px 15px;
+}
+
+/* Header: Search & Toggle */
+.explore-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 12px;
+}
+
+.search-bar-container {
+    flex: 1;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 16px 10px 40px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border-subtle);
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.search-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+}
+
+/* Toggle Switch */
+.turan-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.turan-toggle-btn.active {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    /* Turan Blue Gradient */
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
+}
+
+.turan-icon {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+.turan-toggle-btn.active .turan-icon {
+    color: white;
+}
+
+.toggle-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.turan-toggle-btn.active .toggle-label {
+    color: white;
+}
+
+/* Masonry Grid */
+.explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    margin-top: 1rem;
+}
+
+.explore-item {
+    position: relative;
+    aspect-ratio: 1;
+    /* Square by default */
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.explore-item:nth-child(3n+1) {
+    grid-column: span 1;
+    grid-row: span 1;
+}
+
+/* Every 7th item takes 2x2 space for variety */
+.explore-item.large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.explore-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.explore-item:hover .explore-image {
+    transform: scale(1.05);
+}
+
+.explore-type-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.mood-section {
+    margin-bottom: 1rem;
+}

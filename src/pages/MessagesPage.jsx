@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import Navbar from '../components/Navbar'
 import { FaPaperPlane, FaPhone, FaVideo } from 'react-icons/fa'
 import { groupApi } from '../services/apiService'
 import './MessagesPage.css'
@@ -59,8 +58,7 @@ function MessagesPage() {
     }
 
     return (
-        <div className="social-hub-page messages-page">
-            <Navbar />
+        <div className="social-hub-page messages-page" style={{ paddingBottom: '80px' }}>
 
             <div className="messages-container-full">
                 <div className="social-chat-view">

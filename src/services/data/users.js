@@ -55,6 +55,19 @@ export const users = [
         bio: "Photography 📸 | Nature 🌲 | Engineering",
         karma: 950,
         followers: 890,
-        following: 670
+        following: 670,
+        location: "Ankara, TR"
+    },
+    {
+        id: 999,
+        username: "Demo Öğrenci",
+        email: "demo@altuvya.com",
+        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Demo",
+        banner: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1500",
+        bio: "Altuvya Demo Kullanıcısı | Öğrenci Yaşamını Keşfediyor",
+        karma: 420,
+        followers: 15,
+        following: 50,
+        location: "Kayseri, TR"
     }
 ];

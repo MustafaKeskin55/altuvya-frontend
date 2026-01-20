@@ -7,42 +7,40 @@
 }
 
 :root {
-  /* Premium Dark Theme Colors - Restored */
-  --bg-primary: #0F172A;
-  --bg-secondary: #1E293B;
-  --bg-tertiary: #334155;
-  --bg-elevated: #1e293b;
+  /* Altuvya 2.0 Identity Colors */
+  --bg-primary: #003466;
+  /* Lacivert */
+  --bg-secondary: #00284d;
+  /* Slightly darker */
+  --bg-tertiary: #001f3d;
+  /* Darkest */
 
-  /* Gradient Colors */
-  --gradient-start: #7C3AED;
-  --gradient-end: #3B82F6;
-  --gradient-main: linear-gradient(135deg, #7C3AED 0%, #3B82F6 100%);
+  --primary-color: #FFA500;
+  /* Turuncu (Altuvya Orange) */
+  --accent-color: #F1F5F9;
+  /* White/Light Grey */
 
-  /* Accent Colors */
-  --accent-green: #10B981;
-  --accent-orange: #F59E0B;
-  --accent-pink: #EC4899;
-  --primary-color: #3B82F6;
-
-  /* Text Colors */
+  /* Semantic Colors */
   --text-primary: #F1F5F9;
-  --text-secondary: #CBD5E1;
-  --text-muted: #94A3B8;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
 
-  /* Border & Shadow */
-  --border-color: rgba(148, 163, 184, 0.1);
-  --border-subtle: rgba(148, 163, 184, 0.1);
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.05);
+
+  --shadow-sm: 0 2px 8px rgba(0, 52, 102, 0.3);
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
 
-  /* Glass Effect */
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(148, 163, 184, 0.1);
+  /* Glass Effect - Adjusted for Navy Background */
+  --glass-bg: rgba(0, 52, 102, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
 
   /* Layout */
-  --nav-height: 70px;
+  --bottom-nav-height: 60px;
+  /* Standard mobile nav */
   --radius-md: 12px;
   --radius-lg: 16px;
+  --radius-full: 999px;
 }
 
 body {

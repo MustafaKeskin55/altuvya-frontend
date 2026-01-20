@@ -70,7 +70,7 @@ function LoginPage() {
 
             dispatch(loginSuccess({
                 user: {
-                    userId: 'demo-123',
+                    userId: 999,
                     username: 'Demo Öğrenci'
                 },
                 token: 'demo-token-123'

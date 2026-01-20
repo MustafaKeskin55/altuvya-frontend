@@ -12,6 +12,30 @@ Premium sosyal medya platformu frontend - React ile geliştirilmiştir.
 - Vanilla CSS
 - Vite
 
+## Vizyon & Misyon
+**Vizyonumuz:** Dünyanın en özgün ve çok yönlü sosyal medya platformu olarak, Türk dünyasındaki öğrencileri ortak kültürel, akademik ve sosyal bir çatı altında birleştirmek. Geleceğin dijital kampüsü olmak.
+
+**Misyonumuz:** 
+- Üniversiteleri, kampüsleri ve gençleri tek dijital ağda buluşturmak.
+- Instagram, X, Facebook ve WhatsApp’ın güçlü yanlarını tek çatı altında sunmak.
+- Kültürel ve sosyal çeşitliliği destekleyen, global görünümlü ama kökleri güçlü bir marka yaratmak.
+- Dil öğrenme, kültürel paylaşımlar ve topluluk odaklı yapılarla ortak kimlik bilincini güçlendirmek.
+
+## Tasarım Dili
+- **Estetik:** Minimalist, Premium, Glassmorphism
+- **Renk Paleti:** Lacivert (#003466), Turuncu (#FFA500), Beyaz
+- **Tipografi:** Modern, net ve okunabilir
+- **Animasyon:** Yumuşak geçişler ve mikro hareketler
+
+## Öne Çıkan Özellikler
+
+🚀 **Flash Posts:** Hızlı ve etkileyici anlık paylaşımlar
+🤖 **Dil Öğrenme Botu:** Kültürel etkileşimi artıran akıllı asistanlar
+📡 **Yakın Çevre Radar:** Kampüs ve çevrendeki etkinlikleri keşfetme
+🎮 **Oyunlaştırma:** Rozetler, ilerleme barları ve karma sistemi
+⭕ **Live Circles:** Topluluklar içi canlı etkileşim alanları
+🌍 **Türk Dünyası Portalı:** Özel içerikler ve kültürel bağlar
+
 ## Özellikler
 
 🎨 **Premium Dark Theme** - Glassmorphism ve gradient tasarım

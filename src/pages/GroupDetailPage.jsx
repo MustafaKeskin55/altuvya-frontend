@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import Navbar from '../components/Navbar'
 import PostCard from '../components/PostCard'
 import { groupApi, postApi } from '../services/apiService'
 import { FaUsers } from 'react-icons/fa'
@@ -41,8 +40,7 @@ function GroupDetailPage() {
 
     if (loading) {
         return (
-            <div className="feed-page">
-                <Navbar />
+            <div className="feed-page" style={{ paddingBottom: '80px' }}>
                 <div className="loading">
                     <div className="spinner"></div>
                     <p>Yükleniyor...</p>
@@ -52,8 +50,7 @@ function GroupDetailPage() {
     }
 
     return (
-        <div className="feed-page">
-            <Navbar />
+        <div className="feed-page" style={{ paddingBottom: '80px' }}>
 
             <div className="feed-container">
                 {group && (

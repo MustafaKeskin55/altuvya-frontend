@@ -1,0 +1,42 @@
+.mood-selector {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-bottom: 0.5rem;
+}
+
+.mood-selector::-webkit-scrollbar {
+    display: none;
+}
+
+.mood-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-subtle);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.mood-chip:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mood-chip.active {
+    background: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+    box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+}
+
+.mood-icon {
+    font-size: 1.1rem;
+}

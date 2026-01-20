@@ -210,6 +210,17 @@
     box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
 }
 
+/* Student Top Navigation */
+.student-top-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 1rem;
+    z-index: 25;
+    display: flex;
+}
+
 /* Header with User Info */
 .story-header {
     position: absolute;
