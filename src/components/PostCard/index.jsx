@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
 import { FaArrowUp, FaArrowDown, FaComment, FaHeart, FaShare, FaBookmark } from 'react-icons/fa'
 import { postApi } from '../../services/apiService'
 import { formatDistanceToNow } from 'date-fns'
@@ -39,8 +40,6 @@ function PostCard({ post }) {
             await postApi.votePost(post.id, user.userId, voteType)
         } catch (error) {
             console.error('Vote error (Mock API fail ignored):', error)
-            // Optional: Revert state if we really wanted strict consistency
-            // For Demo: We keep the optimistic update so user sees it "working"
         }
     }
 
@@ -79,7 +78,6 @@ function PostCard({ post }) {
                 url: window.location.href
             }).catch(console.error)
         } else {
-            // Fallback
             navigator.clipboard.writeText(window.location.href)
             alert('Bağlantı kopyalandı!')
         }
@@ -94,7 +92,12 @@ function PostCard({ post }) {
     const timeAgo = formatDistanceToNow(new Date(post.createdAt), { addSuffix: true, locale: tr })
 
     return (
-        <div className="post-card slide-up">
+        <motion.div
+            className="post-card"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+        >
             <div className="post-header">
                 <div
                     className="post-avatar"
@@ -130,29 +133,62 @@ function PostCard({ post }) {
 
             <div className="post-actions-bar">
                 <div className="action-left">
-                    <button
+                    <motion.button
                         className={`icon-btn like-btn ${votes.userVote === 'upvote' ? 'active' : ''}`}
-                        onClick={() => handleVote(votes.userVote === 'upvote' ? 'remove' : 'upvote')} // Toggle like
+                        onClick={() => handleVote(votes.userVote === 'upvote' ? 'remove' : 'upvote')}
                         title="Beğen"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
                     >
-                        {votes.userVote === 'upvote' ? <FaHeart color="#e11d48" /> : <FaHeart />}
-                    </button>
-                    <button className="icon-btn comment-btn" onClick={handleComment} title="Yorum Yap">
+                        {votes.userVote === 'upvote' ? (
+                            <motion.span
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                transition={{ type: "spring", stiffness: 500, damping: 15 }}
+                                style={{ display: 'flex' }}
+                            >
+                                <FaHeart color="#e11d48" />
+                            </motion.span>
+                        ) : <FaHeart />}
+                    </motion.button>
+
+                    <motion.button
+                        className="icon-btn comment-btn"
+                        onClick={handleComment}
+                        title="Yorum Yap"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
+                    >
                         <FaComment />
-                    </button>
-                    <button className="icon-btn share-btn" onClick={handleShare} title="Paylaş">
+                    </motion.button>
+
+                    <motion.button
+                        className="icon-btn share-btn"
+                        onClick={handleShare}
+                        title="Paylaş"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
+                    >
                         <FaShare />
-                    </button>
+                    </motion.button>
                 </div>
 
                 <div className="action-right">
-                    <button
+                    <motion.button
                         className={`icon-btn save-btn ${isSaved ? 'active' : ''}`}
                         onClick={handleSave}
                         title="Kaydet"
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.8 }}
                     >
-                        <FaBookmark color={isSaved ? "#f59e0b" : "currentColor"} />
-                    </button>
+                        <motion.span
+                            animate={isSaved ? { rotate: [0, -10, 10, 0] } : {}}
+                            style={{ display: 'flex' }}
+                        >
+                            <FaBookmark color={isSaved ? "#f59e0b" : "currentColor"} />
+                        </motion.span>
+                    </motion.button>
                 </div>
             </div>
 
@@ -183,7 +219,7 @@ function PostCard({ post }) {
                     </form>
                 </div>
             )}
-        </div>
+        </motion.div>
     )
 }
 

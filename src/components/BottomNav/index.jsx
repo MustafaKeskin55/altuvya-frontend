@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { FaHome, FaBell, FaUser, FaSearch } from 'react-icons/fa'
+import { FaHome, FaBell, FaUser, FaSearch, FaComment, FaUsers } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import turanIcon from '../../images/icon.png'
 import './styles.css'
@@ -19,17 +19,25 @@ function BottomNav() {
 
     return (
         <nav className="bottom-nav">
+            {/* 1. Akış */}
             <Link to="/anasayfa" className={`nav-item ${isActive('/anasayfa') ? 'active' : ''}`}>
                 <FaHome className="nav-icon" />
                 <span className="nav-label">Akış</span>
             </Link>
 
+            {/* 2. Keşfet */}
             <Link to="/kesfet" className={`nav-item ${isActive('/kesfet') ? 'active' : ''}`}>
                 <FaSearch className="nav-icon" />
                 <span className="nav-label">Keşfet</span>
             </Link>
 
-            {/* Turan Mode Portal - Center Action */}
+            {/* 3. Mesajlar (Right of Explore) */}
+            <Link to="/messages" className={`nav-item ${isActive('/messages') ? 'active' : ''}`}>
+                <FaComment className="nav-icon" />
+                <span className="nav-label">Mesajlar</span>
+            </Link>
+
+            {/* 4. Turan Portal - Center Action */}
             <div
                 className={`nav-item center-action ${turanMode ? 'turan-active' : ''}`}
                 onClick={handleTuranClick}
@@ -40,11 +48,19 @@ function BottomNav() {
                 </div>
             </div>
 
+            {/* 5. Gruplar (Right of Turan) */}
+            <Link to="/groups" className={`nav-item ${isActive('/groups') ? 'active' : ''}`}>
+                <FaUsers className="nav-icon" />
+                <span className="nav-label">Gruplar</span>
+            </Link>
+
+            {/* 6. Bildirimler */}
             <Link to="/notifications" className={`nav-item ${isActive('/notifications') ? 'active' : ''}`}>
                 <FaBell className="nav-icon" />
                 <span className="nav-label">Bildirimler</span>
             </Link>
 
+            {/* 7. Profil */}
             <Link
                 to={user ? `/profile/${encodeURIComponent(user.username)}` : '/login'}
                 className={`nav-item ${isActive(user ? `/profile/${encodeURIComponent(user.username)}` : '/login') ? 'active' : ''}`}

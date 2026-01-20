@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
+import { motion, AnimatePresence } from 'framer-motion'
 import PostCard from '../components/PostCard'
 import { FaGraduationCap, FaMapMarkerAlt, FaLink, FaCalendarAlt, FaCog } from 'react-icons/fa'
 import { userApi, postApi } from '../services/apiService'
@@ -65,7 +66,11 @@ function ProfilePage() {
         return (
             <div className="profile-page-wrapper">
                 <div className="loading-container">
-                    <div className="spinner"></div>
+                    <motion.div
+                        className="spinner"
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                    ></motion.div>
                     <p>Yükleniyor...</p>
                 </div>
             </div>
@@ -86,7 +91,11 @@ function ProfilePage() {
     const content = filteredContent()
 
     return (
-        <div className="profile-page-wrapper">
+        <motion.div
+            className="profile-page-wrapper"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+        >
             <div className="profile-content">
                 {/* Banner */}
                 <div className="profile-banner-container">
@@ -99,30 +108,51 @@ function ProfilePage() {
 
                 {/* Header Info */}
                 <div className="profile-header-section">
-                    <div className="profile-avatar-container">
+                    <motion.div
+                        className="profile-avatar-container"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", damping: 15 }}
+                    >
                         <img
                             src={profileUser.avatar || `https://api.dicebear.com/7.x/avataaars/svg?seed=${profileUser.username}`}
                             alt="Avatar"
                             className="profile-avatar-img"
                         />
-                    </div>
+                    </motion.div>
 
                     <div className="profile-actions">
                         {isOwnProfile ? (
-                            <button className="btn-edit-profile">
+                            <motion.button
+                                className="btn-edit-profile"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
                                 <FaCog /> Düzenle
-                            </button>
+                            </motion.button>
                         ) : (
                             <>
-                                <button
+                                <motion.button
                                     className={`btn-follow ${isFollowing ? 'following' : ''}`}
                                     onClick={handleFollow}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    initial={false}
+                                    animate={{
+                                        backgroundColor: isFollowing ? 'rgba(255, 255, 255, 0.1)' : 'var(--primary-color)',
+                                        color: isFollowing ? 'white' : 'white'
+                                    }}
                                 >
                                     {isFollowing ? 'Takipten Çık' : 'Takip Et'}
-                                </button>
-                                <button className="btn-msg" onClick={handleMessage}>
+                                </motion.button>
+                                <motion.button
+                                    className="btn-msg"
+                                    onClick={handleMessage}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
                                     Mesaj
-                                </button>
+                                </motion.button>
                             </>
                         )}
                     </div>
@@ -220,7 +250,7 @@ function ProfilePage() {
                     </div>
                 )}
             </div>
-        </div>
+        </motion.div>
     )
 }
 
